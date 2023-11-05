@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/product.css}" />
+</head>
+<body>
+	<div th:replace="~{admin/navbar.html :: nonnavbar}"></div>
+	<div id="featured"></div>
+	<div th:if="${products.size() > 0}">
+		<div class="container" style="width: 100%;">
+	        <div class="card border-black">
+	            <div class="card-body">
+					<h2 class="text-muted" th:text="${products.size()} + ' Results found'"></h2>
+					<hr>
+	                <div class="row">
+		               <div th:each="product : ${products}" class="col-12 col-xl-3 col-md-6">
+						    <div class="card mt-4 mb-3">
+								<a th:href="@{/admin/adminproduct/{productCode}(productCode=${product.productCode})}">
+									<img th:src="${ '/' + product.productImage}" class="card-img-top img-fluid" alt="Product Image">
+								</a>
+						        <div class="card-body">
+									<p th:text="${product.category}"></p>
+									<a th:href="@{/admin/product/{productCode}(productCode=${product.productCode})}" style="text-decoration: none; color: black;">
+										<h5 th:text="${product.productName}"></h5>
+									</a>
+									<div th:replace="~{includes/stars.html :: star}"></div>
+									<h6 th:if="${product.discount > 0}" class="mt-1">
+									    <s th:text="${'$' + product.cost}"></s>
+										<b th:text="${'$' + (product.cost - (product.cost * (product.discount / 100)))}"></b>
+									</h6>
+						            <div style="margin-top: 15px;" class="d-grid gap-2 d-md-flex justify-content-md-end">
+										<a th:href="@{/admin/admineditproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-primary'>Edit Product</a>
+						           		<a th:href="@{/admin/admindeleteproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-danger'>Delete Product</a>
+							        </div>
+						        </div>    
+						    </div>
+						</div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div th:replace="~{includes/footer.html :: footer}"></div>
+	</div>
+	<div th:unless="${products.size() > 0}" class="text-center" id="results">
+	    <img th:src="@{/icons/no-results-found.png}" id="resultsnotfound">
+	    <h2 class="text-muted">No results found</h2>
+	</div>
+
+</body>
+</html>

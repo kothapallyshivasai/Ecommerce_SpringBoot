@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+    <script>
+		function togglePasswordVisibility() {
+		    var passwordInput = document.getElementById("password");
+		    var toggleButton = document.getElementById("toggleButton");
+		
+		    if (passwordInput.type === "password") {
+		        passwordInput.type = "text";
+		        toggleButton.innerHTML = '<img src="/icons/hide_password.png" style="height: 20px; width: 20px;" alt="hide" />';
+		    } else {
+		        passwordInput.type = "password";
+		        toggleButton.innerHTML = '<img src="/icons/show_password.png" style="height: 20px; width: 20px;" alt="show" />';
+		    }
+		}
+      function registerFields(event){
+		
+        let email = document.getElementById('email').value
+        let password1 = document.getElementById('password').value
+        let password2 = document.getElementById('password2').value 
+        let mobileNumber = document.getElementById('mobileNumber').value
+        let termsandservices = document.getElementById('termsandservices').checked
+
+        if(email === "" || mobileNumber === ""){
+          swal("Error", "Please Enter all credentials", "error")
+          event.preventDefault();
+        }
+        
+        else if(("" + mobileNumber).length != 10){
+			swal("Error", "Mobile Number should be 10 numbers only")
+			event.preventDefault();
+		}
+
+		else if(password1 != password2){
+			swal("Error", "Passwords are not same", "error")
+          	event.preventDefault();
+		}
+
+        else if(password1 === "" || password2 === ""){
+          swal("Error", "Passwords shouldn't be empty", "error")
+          event.preventDefault();
+        }
+        
+        else if(!profilePic.trim()){
+			swal("Error", "Please upload a image", "error")
+			event.preventDefault();
+		}
+
+        else if(!termsandservices){
+          swal("Error", "Please accept terms and conditions", "error")
+          event.preventDefault();
+        }
+      }
+    </script>
+</head>
+<body>
+	    <div th:replace="~{nonlogin/navbar.html :: nonnavbar}"></div>
+	    <div th:if="${emailExists}" id="emailExists" style="display: none;"></div>
+		<div th:if="${imageNotValid}" id="imageNotValid" style="display: none;"></div>
+		
+		<script>
+		    if (document.getElementById("emailExists")) {
+		        swal("Error", "Email already exists.", "error");
+		    }
+		
+		    if (document.getElementById("imageNotValid")) {
+		        swal("Error", "Image not valid.", "error");
+		    }
+		</script>
+
+
+		<section class="vh-80 mt-5 bg-info" style="background-color: #eee;">
+	        <div class="container h-100">
+	          <div class="row d-flex justify-content-center align-items-center h-100">
+	            <div class="col-lg-12 col-xl-11">
+	              <div class="card text-black" style="border-radius: 25px;">
+	                <div class="card-body p-md-5">
+	                  <div class="row justify-content-center">
+	                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+	                    	<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-1">Sign up</p>
+	                      	<form class="mx-1 mx-md-4" th:action="@{/validateRegistration}" method="post" enctype="multipart/form-data" th:object="${register}">
+
+		                        <div class="d-flex flex-row align-items-center mb-3">
+		                          <div class="form-outline flex-fill mb-0">
+		                            <input type="email" name="email" id="email" th:field="*{emailId}" class="form-control" />
+		                            <label class="form-label" for="email"><img src="/icons/email.png" alt="Email icon" style="height: 20px; width: 20px; margin-top: -4px;"> Email ID</label>
+		                          </div>
+		                        </div>
+		      
+		      					<div class="d-flex flex-row align-items-center mb-3">
+		                          <div class="form-outline flex-fill mb-0">
+		                            <input type="number" name="mobileNumber" th:field="*{mobileNumber}" id="mobileNumber" class="form-control" />
+		                            <label class="form-label" for="mobileNumber"><img src="/icons/call.png" alt="Mobile Number icon" style="height: 20px; width: 20px; margin-top: -4px;"> Mobile Number</label>
+		                          </div>
+		                        </div>
+		      
+		                        <div class="d-flex flex-row align-items-center mb-3">
+		                          <div class="form-outline flex-fill mb-0">
+		                            <div class="input-group">
+		                              <input type="password" class="form-control" th:field="*{password}" id="password" name="password">
+		                              <div class="input-group-append">
+		                                  <button class="btn btn-outline-secondary" onclick="togglePasswordVisibility()" type="button" id="toggleButton">
+		                                      <img src="/icons/show_password.png" style="height: 20px; width: 20px;" alt="show" />
+		                                  </button>
+		                              </div>
+		                          </div>
+		                            <label class="form-label" for="password"><img src="/icons/password.png" alt="Username icon" style="height: 20px; width: 20px; margin-top: -4px;"> Password</label>
+		                          </div>
+		                        </div>
+		      
+		                        <div class="d-flex flex-row align-items-center mb-3">
+		                          <div class="form-outline flex-fill mb-0">
+		                            <input type="password" name="password2" id="password2" class="form-control" />
+		                            <label class="form-label" for="password2"><img src="/icons/password2.png" alt="Username icon" style="height: 20px; width: 20px; margin-top: -4px;"> Repeat your password</label>
+		                          </div>
+		                        </div>
+		                        
+		                        <div class="d-flex flex-row align-items-center mb-3">
+		                          <div class="form-outline flex-fill mb-0">
+		                            <input type="file" name="file" id="file" accept="image/*" class="form-control" />
+		                            <label class="form-label" for="file"><img src="/icons/upload.png" alt="" style="height: 20px; width: 20px; margin-top: -4px;"> Profile Picture</label>
+		                          </div>
+		                        </div>
+		      
+		                        <div class="form-check d-flex justify-content-center mb-3">
+		                          <input class="form-check-input me-2" type="checkbox" id="termsandservices" name="termsandservices" />
+		                          <label class="form-check-label" for="termsandservices">
+		                            I agree all statements in <a href="#">Terms of service</a>
+		                          </label>
+		                        </div>
+		
+		                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+		                          <button type="submit" onclick="registerFields(event)" class="btn btn-primary btn-lg">Register</button>
+		                        </div>
+	      
+	                      </form>
+	      
+	                    </div>
+	                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+	      
+	                      <img src="/icons/register.jpg"
+	                        class="img-fluid" alt="register image">
+	
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+      </section>
+</body>
+</html>

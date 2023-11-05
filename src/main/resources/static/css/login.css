@@ -1,0 +1,17 @@
+#featured{
+	margin-top: 70px;
+}
+
+@media (min-width: 768px) {
+            .full-height-image {
+                height: 92vh;
+            }
+        }
+        @media (max-width: 768px){
+            .margin-bottom-footer {
+                margin-bottom: 40px;
+            }
+            .full-height-image {
+                margin-top: 20px;
+            }
+        }

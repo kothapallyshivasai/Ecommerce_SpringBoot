@@ -1,0 +1,61 @@
+.card-img-top{
+	padding: 10px;
+}
+
+.adjust-image{
+	height: 50vh;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .adjust-image {
+        height: 70vh;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 992px) {
+    .adjust-image {
+        height: 50vh;
+    }
+}
+
+@media (min-width: 390px) and (max-width: 416px) {
+    .adjust-image {
+        height: 50vh;
+    }
+}
+
+@media (min-width: 416px) and (max-width: 768px) {
+    .adjust-image {
+        height: 80vh;
+    }
+}
+
+@media (max-width: 1200px){
+	#fashionimage{
+		width: 20%;
+	}
+}
+
+#bestfashioncollection{
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+#containerfashion{
+	margin-top: 110px;
+	
+}
+
+#featured{
+	margin-top: 70px;
+}
+
+#resultsnotfound{
+	height: 200px;
+	width: 200px;
+}
+
+#results{
+	margin-top: 200px;
+}

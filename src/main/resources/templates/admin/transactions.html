@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:replace="~{admin/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive">
+			 <thead class="table-dark">
+                <tr>
+                    <th scope="col">Transaction ID</th>
+                    <th scope="col">To Account</th>
+                    <th scope="col">From Account</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.transactionId}"></td>
+                    <td th:text="${transaction.toAccount}"></td>
+                    <td th:text="${transaction.fromAccount}"></td>
+                    <td th:text="${transaction.amount}"></td>
+                    <td th:text="${transaction.transactionDate}"></td>
+                </tr>
+            </tbody>
+		</table>     
+    </div>
+</body>
+</html>

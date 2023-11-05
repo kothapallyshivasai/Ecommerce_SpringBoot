@@ -1,0 +1,51 @@
+.navbar{
+    position: fixed;
+    z-index: 10;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.hover-animation{
+    position: relative;
+    overflow: hidden;
+  }
+  
+.hover-animation::after{
+    content: "";
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color: #2bd576;
+    transform: scale(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+  
+.hover-animation:hover::after{
+    transform: scale(1);
+} 
+
+#icon{
+	height: 35px;
+    width: 35px;
+}
+
+#featured{
+	margin-top: 65px;
+}
+
+
+@media(min-width: 992px){
+	li{
+		margin-left: 15px;
+	}	
+	#searchform{
+		position: absolute;
+		right: 20px;
+	}
+	.li{
+		margin-left: 0px;
+	}
+}
+

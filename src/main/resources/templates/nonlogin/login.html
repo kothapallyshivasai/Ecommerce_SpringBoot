@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+    <link rel="stylesheet" href="/css/login.css"
+</head>
+<body>
+	<script>
+		function togglePasswordVisibility() {
+		    var passwordInput = document.getElementById("password");
+		    var toggleButton = document.getElementById("toggleButton");
+		
+		    if (passwordInput.type === "password") {
+		        passwordInput.type = "text";
+		        toggleButton.innerHTML = '<img src="/icons/hide_password.png" style="height: 20px; width: 20px;" alt="hide" />';
+		    } else {
+		        passwordInput.type = "password";
+		        toggleButton.innerHTML = '<img src="/icons/show_password.png" style="height: 20px; width: 20px;" alt="show" />';
+		    }
+		}
+		function fields_check(event){
+            username = document.getElementById("username").value
+            password = document.getElementById("password").value
+            if(username == "" || password==""){
+                event.preventDefault()
+                swal("Error!", "Fill all your Details!", "error");
+            }
+        }
+	</script>
+	
+	<div th:if="${invalid}" id="invalid" style="display: none;"></div>
+		
+	<script>
+		if (document.getElementById("invalid")) {
+		   swal("Error", "Invalid Username/Password", "error");
+		}
+	</script>
+	
+    <div th:replace="~{nonlogin/navbar.html :: nonnavbar}"></div>
+    <div id="featured"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 order-md-2">
+                <img src="/icons/fashion_image.jpg" class="img-fluid full-height-image" alt="fashion_image" />
+            </div>
+            <div class="col-md-4 order-md-1 mt-5">
+                <h1 class="text-center mt-4"><img src="/icons/head.png" style="height: 50px; width: 50px;" alt="shopfusion" /> <strong>ShopFusion</strong></h1>
+                <h3 class="text-center mt-2">Login</h3>
+                <div class="mt-4 text-center">
+                    Don't have an account? <a href="/register" style="color: orange;">Register Now!</a>
+                </div>
+                <form method="post" th:action="@{/validateCustomerLogin}" th:object="${customer}"> 
+                    <div class="form-group mt-3">
+                        <div class="row">
+                            <div class="col-md-10 col-12 offset-md-1">
+                                <label for="email">Email Id</label>
+                                <input type="email" class="form-control" th:field="*{userName}" id="username" name="username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="row">
+                            <div class="col-md-10 col-12 offset-md-1">
+                                <label for="password">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" th:field="*{password}" id="password" name="password">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" onclick="togglePasswordVisibility()" type="button" id="toggleButton">
+                                            <img src="/icons/show_password.png" style="height: 20px; width: 20px;" alt="show" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <a href="#" style="color: orange;">Forgot password?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" onclick="fields_check(event)" style="width: 82%;" class="btn btn-primary btn-block mt-4">Login</button>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <div class="mt-4 text-danger">
+                            <div class="row">
+                                <div class="col-10 offset-1 margin-bottom-footer">
+                                    Copyright &copy; 2023 ShopFusion, LLC Website is a trademark of this website
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

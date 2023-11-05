@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+    <link rel="stylesheet" href="/css/product.css">
+    
+    <script>
+		function togglePasswordVisibility() {
+		    var passwordInput = document.getElementById("password");
+		    var toggleButton = document.getElementById("toggleButton");
+		
+		    if (passwordInput.type === "password") {
+		        passwordInput.type = "text";
+		        toggleButton.innerHTML = '<img src="/icons/hide_password.png" style="height: 20px; width: 20px;" alt="hide" />';
+		    } else {
+		        passwordInput.type = "password";
+		        toggleButton.innerHTML = '<img src="/icons/show_password.png" style="height: 20px; width: 20px;" alt="show" />';
+		    }
+		}
+	</script>
+</head>
+<body>
+	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
+	<div class="container" id="containerfashion">
+		<div class="card">
+			<div class="card-body">
+				<form method="post" th:action="@{/savechanges}" th:object="${customer}">
+					<div class="row" style="justify-content: center; align-items: center;">
+						<div class="col-lg-6 col-12" style="justify-content: center; align-items: center;">
+							<img class="img-fluid" th:src="${'/userprofilepictures/' + customer.profilePic}">
+						</div>
+						<input type="text" hidden id="profilePic" th:field="*{profilePic}">
+						<div class="col-lg-6 col-12">
+							<div class="col-12">
+								<div class="form-group mt-lg-0 mt-3 mb-3">
+					                <label class="text-muted" for="customerId">Customer ID</label>
+					                <input type="text" readonly class="form-control" id="customerId" th:field="*{customerId}" required>
+					            </div>
+							</div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="registerDate">Register Date</label>
+									<input type="date" readonly class="form-control" id="registerDate" th:field="*{registerDate}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="password">Password</label>
+                                    <div class="input-group">
+										<input type="text" class="form-control" th:field="*{password}" id="password"> 
+	                                    <div class="input-group-append">
+	                                        <button class="btn btn-outline-secondary" onclick="togglePasswordVisibility()" type="button" id="toggleButton">
+	                                            <img src="/icons/hide_password.png" style="height: 20px; width: 20px;" alt="show" />
+	                                        </button>
+	                                    </div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="mobileNumber">Mobile Number</label>
+                                    <input type="text" readonly class="form-control" id="mobileNumber" th:field="*{mobileNumber}" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label class="text-muted" for="emailId">Email ID</label>
+                                    <input type="text" readonly class="form-control" id="emailId" th:field="*{emailId}" required>
+                                </div>
+                            </div>
+						</div>
+						<div class="col-4 offset-8">
+							<button type="submit" class="btn btn-success">Save Changes</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+    
+    
+    <div th:replace="~{includes/footer.html :: footers}"></div>
+</body>
+</html>

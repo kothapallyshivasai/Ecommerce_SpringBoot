@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:replace="~{admin/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive">
+			<thead class="table-dark">
+                <tr>
+                    <th scope="col">Shipment ID</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Delivery Address</th>
+                    <th scope="col">Zip Code</th>
+                    <th scope="col">Mobile Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="shipment : ${shipments}">
+                    <td th:text="${shipment.shipmentId}"></td>
+                    <td th:text="${shipment.customerOrders.orderId}"></td>
+                    <td th:text="${shipment.customers.customerId}"></td>
+                    <td th:text="${shipment.deliveryAddress}"></td>
+                    <td th:text="${shipment.zipCode}"></td>
+                    <td th:text="${shipment.mobileNumber}"></td>
+                </tr>
+            </tbody>
+		</table>     
+    </div>
+</body>
+</html>

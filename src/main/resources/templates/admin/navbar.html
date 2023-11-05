@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="nonnavbar">
+<head>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: purple;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{/admin/adminhome}">
+                <i>ShopFusion</i>
+                <img src="/icons/head.png" alt="icon" id="icon" />
+            </a>
+            <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav navbar-nav-scroll ml-auto" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white hover-animation" aria-current="page" th:href="@{/admin/adminhome}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+			          <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			            Products
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li class="li"><a class="dropdown-item hover-animation" href="/admin/adminaddproduct">Add Product</a></li>
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/adminproducts}">View Products</a></li>
+			          </ul>
+			        </li>
+			        
+			        <li class="nav-item dropdown">
+			          <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			            More
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/orders}">Orders</a></li>
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/shipments}">Shipments</a></li>
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/invoices}">Invoices</a></li>
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/transactions}">Transactions</a></li>
+			          </ul>
+			        </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover-animation" th:href="@{/admin/logout}">Logout</a>
+                    </li>
+                    <li>
+						<form id="searchform" th:action="@{/admin/adminsearch}" method="get" class="d-flex" role="search">
+					      <input class="form-control me-2" id="search" name="search" type="search" placeholder="Enter a category" aria-label="Search">
+					      <button class="btn btn-outline-success btn-dark text-white" type="submit">Search</button>
+					    </form>
+					</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

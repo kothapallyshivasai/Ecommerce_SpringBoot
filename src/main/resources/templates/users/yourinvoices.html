@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive">
+			<thead class="table-dark">
+                <tr>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Invoice Date</th>
+                    <th scope="col">Card Type</th>
+                    <th scope="col">Card Number</th>
+                    <th scope="col">Invoice Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="invoice : ${invoices}">
+                    <td th:text="${invoice.invoiceId}"></td>
+                    <td th:text="${invoice.customerOrders.orderId}"></td>
+                    <td th:text="${invoice.invoiceDate}"></td>
+                    <td th:text="${invoice.cardType}"></td>
+                    <td th:text="${invoice.cardNumber}"></td>
+                    <td th:text="${invoice.invoiceAmount}"></td>
+                </tr>
+            </tbody>
+		</table>     
+    </div>
+</body>
+</html>

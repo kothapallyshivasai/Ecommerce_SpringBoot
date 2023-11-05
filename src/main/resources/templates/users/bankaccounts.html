@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Accounts</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive">
+			<thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Date</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Contact Address</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Email ID</th>
+                    <th scope="col">Card Type</th>
+                    <th scope="col">Card Number</th>
+                    <th scope="col">Expiry Date</th>
+                    <th scope="col">CVV Number</th>
+                    <th scope="col">Balance Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="account, iterStat : ${accounts}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${account.accountNumber}"></td>
+                    <td th:text="${account.accountDate}"></td>
+                    <td th:text="${account.customerName}"></td>
+                    <td th:text="${account.contactAddress}"></td>
+                    <td th:text="${account.mobileNumber}"></td>
+                    <td th:text="${account.emailId}"></td>
+                    <td th:text="${account.cardType}"></td>
+                    <td th:text="${account.cardNumber}"></td>
+                    <td th:text="${account.expiryDate}"></td>
+                    <td th:text="${account.cvvNumber}"></td>
+                    <td th:text="${account.balanceAmount}"></td>
+                </tr>
+                <tr>
+                    <td colspan="12"><a href="/customer/addbankaccount" class="btn btn-success">Add Bank Account</a></td>
+                </tr>
+            </tbody>
+		</table>     
+    </div>
+</body>
+</html>
