@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+    <link rel="stylesheet" href="/css/adminhome.css">
+</head>
+<body>
+	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+		<form th:object="${buy}" method="post" th:action="@{'/customer/placeorder/' + ${buy.product.productCode}}">
+			<div class="container">
+				<div class="card border-dark">
+					<div class="card-body">
+						<div class="row" style="justify-content: center; align-items: center;">
+							<div class="col-md-3 col-12">
+								<div class="card">
+									<div class="card-body">
+										<img th:src="${'/' + buy.product.productImage}"
+										 class="img-fluid" alt="Product Image" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-9 col-12">
+								<hr style="height: 2px;" noshade class="bg-secondary">
+								<h2 class="mt-3 mt-md-0" th:text="${buy.product.productName}"></h2>
+								<h4 class="text-muted" th:text="${buy.product.category}"></h4>
+								<p class="text-muted" th:text="${'Product Code: ' + buy.product.productCode}"></p>
+								<div th:replace="~{includes/stars.html :: star}"></div>
+								<p class="text-dark" th:text="${buy.product.description}" ></p>
+								<h5 th:text="${'Flat ' + buy.product.discount} + '% Discount' "></h5>
+								<h4 th:if="${buy.product.discount > 0}" class="mt-1">
+									<s th:text="${'$' + buy.product.cost}"></s>
+									<b class="text-danger" th:text="${'$' + (buy.product.cost - (buy.product.cost * (buy.product.discount / 100)))}"></b>
+								</h4>
+								<hr style="height: 2px;" noshade class="bg-secondary">
+							</div>
+							<hr style="height: 2px; color: black;" class="bg-secondary mt-2">
+							<div class="col-md-6 col-12">
+								<div class="form-group mb-3">
+					                <label for="customerId">Customer Id</label>
+					                <input type="number" class="form-control" readonly id="customerId" th:field="${buy.customer.customerId}" required>
+					            </div>
+							</div>
+							<div class="col-md-6 col-12">
+								<div class="form-group mb-3">
+					                <label for="cost">Cost</label>
+					                <input type="number" class="form-control" readonly id="cost" th:field="${buy.product.cost}" required>
+					            </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="discount">Discount</label>
+							        <input type="number" class="form-control" readonly id="discount" th:field="${buy.product.discount}" required>
+							    </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="finalPrice">Final Price</label>
+							        <input type="number" class="form-control" readonly id="finalPrice" th:value="${buy.product.cost - (buy.product.cost * (buy.product.discount / 100))}" required>
+							    </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="zipcode">Zip Code</label>
+							        <input type="number" class="form-control" id="zipcode" th:field="${buy.shipment.zipCode}" required>
+							    </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="mobileNumber">Mobile Number</label>  
+							        <input type="number" class="form-control" id="mobileNumber" th:field="${buy.shipment.mobileNumber}" required>
+							    </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="deliveryAddress">Delivery Address</label>
+							        <textarea rows="3" class="form-control" id="deliveryAddress" th:field="${buy.shipment.deliveryAddress}" required></textarea>
+							    </div>
+							</div>
+							<div class="col-md-6 col-12">
+							    <div class="form-group mb-3">
+							        <label for="bankAccount">Card Number</label>
+							        <select class="form-control" id="bankAccount" th:field="${buy.invoice.cardNumber}" required>
+							            <div th:each="account : ${buy.accounts}">
+							                <option th:value="${account.accountNumber}" th:text="${account.cardNumber}"></option>
+							            </div>
+							        </select>
+									<a class="nav-link" style="color: orange;" th:if="${#lists.isEmpty(buy.accounts)}" href="/customer/addbankaccount">Don't have an account? Create Account.</a>
+							    </div>
+							</div>
+							<div style="margin-top: 15px;" class="d-grid gap-2 d-md-flex justify-content-md-end">
+							    <button type="submit" class='btn btn-success'>Place Order</button> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    <div th:replace="~{includes/footer.html :: footers}"></div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
+    <title>Customer Invoices</title>
     <link rel="icon" th:href="@{/icons/head.png}" />
     <link rel="stylesheet" href="/css/adminhome.css">
     <th:block th:replace="~{includes/includes :: headers}"></th:block>
@@ -12,7 +12,7 @@
 	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
 	<div id="margingap"></div>
 	<div class="container">
-	       <table class="table table-hover table-responsive">
+	       <table class="table table-hover table-responsive" id="table_id">
 			<thead class="table-dark">
                 <tr>
                     <th scope="col">Invoice ID</th>
@@ -35,5 +35,11 @@
             </tbody>
 		</table>     
     </div>
+    <script>
+	  $(document).ready( function () {
+	    $('#table_id').DataTable({order: []});
+	    
+	} );
+	</script>
 </body>
 </html>

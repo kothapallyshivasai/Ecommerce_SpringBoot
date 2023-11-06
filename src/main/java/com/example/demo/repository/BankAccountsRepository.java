@@ -10,4 +10,6 @@ public interface BankAccountsRepository extends JpaRepository<BankAccounts, Long
 
 	List<BankAccounts> findByEmailId(String emailId);
 	
+	BankAccounts findByCardNumber(String cardNumber);
+	
 }

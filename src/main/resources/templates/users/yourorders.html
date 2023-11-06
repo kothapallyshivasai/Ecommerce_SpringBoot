@@ -12,7 +12,7 @@
 	<div th:replace="~{users/navbar.html :: nonnavbar}"></div>
 	<div id="margingap"></div>
 	<div class="container">
-	       <table class="table table-hover table-responsive">
+	       <table class="table table-hover table-responsive" id="table_id">
 			<thead class="table-dark">
                 <tr>
                     <th scope="col">Order ID</th>
@@ -45,5 +45,11 @@
             </tbody>
 		</table>     
     </div>
+    <script>
+	  $(document).ready( function () {
+	    $('#table_id').DataTable({order: []});
+	    
+	} );
+	</script>
 </body>
 </html>

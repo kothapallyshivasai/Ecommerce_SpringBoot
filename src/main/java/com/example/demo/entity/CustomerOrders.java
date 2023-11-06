@@ -16,7 +16,14 @@ public class CustomerOrders {
     @JoinColumn(name = "customerId")
     private Customers customer;
 
-    @Column(name = "dateTime")
+    @Override
+	public String toString() {
+		return "CustomerOrders [orderId=" + orderId + ", customer=" + customer + ", dateTime=" + dateTime
+				+ ", products=" + products + ", cost=" + cost + ", discountAmount=" + discountAmount + ", billAmount="
+				+ billAmount + ", orderStatus=" + orderStatus + "]";
+	}
+
+	@Column(name = "dateTime")
     private Date dateTime;
 
     @ManyToOne

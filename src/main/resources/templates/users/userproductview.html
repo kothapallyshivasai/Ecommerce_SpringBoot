@@ -37,7 +37,7 @@
 						</h4>
 						<div style="margin-top: 15px;" class="d-grid gap-2 d-md-flex justify-content-md-end">
 							<a th:href="@{/customer/addtocart/{productCode} (productCode=${product.productCode})}" class='btn btn-primary'>Add to Cart</a>
-						    <a href="#" class='btn btn-success'>Buy Now</a>
+						    <a th:href="@{/customer/buynow/{productCode} (productCode=${product.productCode})}" class='btn btn-success'>Buy Now</a>
 						</div>
 						<hr style="height: 2px;" noshade class="bg-secondary">
 					</div>

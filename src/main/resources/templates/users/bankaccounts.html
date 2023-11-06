@@ -27,6 +27,7 @@
                     <th scope="col">Expiry Date</th>
                     <th scope="col">CVV Number</th>
                     <th scope="col">Balance Amount</th>
+					<th scope="col">Add Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
                     <td th:text="${account.expiryDate}"></td>
                     <td th:text="${account.cvvNumber}"></td>
                     <td th:text="${account.balanceAmount}"></td>
+                    <td><a th:href="@{/customer/addBalance/{accountNumber}(accountNumber=${account.accountNumber}) }" class="btn btn-primary">Add</a></td>
                 </tr>
                 <tr>
                     <td colspan="12"><a href="/customer/addbankaccount" class="btn btn-success">Add Bank Account</a></td>

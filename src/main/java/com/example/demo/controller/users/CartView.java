@@ -74,4 +74,12 @@ public class CartView {
         return new ModelAndView("users/cartview");
     }
 	
+	@GetMapping("/customer/removecart/{productCode}")
+	public ModelAndView removeCart(Model model, @PathVariable("productCode") int productCode) {
+		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+		Cart cart = cartRepository.findFirstByCustomersAndProductCode(customer, productCode);
+		cartRepository.delete(cart);
+		return new ModelAndView("redirect:/customer/cart");
+	}
+	
 }
