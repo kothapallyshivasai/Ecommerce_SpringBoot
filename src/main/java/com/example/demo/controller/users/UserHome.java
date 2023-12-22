@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.service.ProductsService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class UserHome {
 
@@ -19,5 +22,16 @@ public class UserHome {
 		model.addAttribute("products", productsService.getProducts());
 		return new ModelAndView("users/userhome");
 	}
+	
+	@GetMapping("/customer/logout")
+	public ModelAndView customerLogout(HttpServletRequest request) {
+		
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return new ModelAndView("redirect:/home");
+    }
+	
 	
 }

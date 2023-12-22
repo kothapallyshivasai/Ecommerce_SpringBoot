@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Administrator;
-import com.example.demo.repository.AdministratorRepository;
 import com.example.demo.service.AdministratorService;
 
 @RestController
@@ -21,10 +20,7 @@ public class AdminLogin {
 	@Autowired
 	AdministratorService administratorService;
 	
-	@Autowired
-	AdministratorRepository administratorRepository;
-	
-	@GetMapping("/admin")
+	@GetMapping("/adminlogin")
 	public ModelAndView adminLogin(Model model) {
 		return new ModelAndView("/nonlogin/adminlogin").addObject("admin", new Administrator());
 	}
@@ -32,15 +28,15 @@ public class AdminLogin {
 	@PostMapping("/validateAdminLogin")
 	public ModelAndView validateAdminLogin(Model model, @ModelAttribute("admin") Administrator admin, RedirectAttributes redirectAttributes) {
 		if(administratorService.validateAdministrator(admin)) {
-			Optional<Administrator> administrator = administratorRepository.findById(admin.getUserName());
+			Optional<Administrator> administrator = administratorService.getUserById(admin.getUserName());
 			Administrator admin2 = administrator.get();
-			if(admin2.getRole().equals("ADMIN")) {
+			if(admin2.getRole().equals("ROLE_ADMIN")) {
 				return new ModelAndView("redirect:/admin/adminhome");
 			}
 			return new ModelAndView("redirect:home");
 		}
     	redirectAttributes.addFlashAttribute("invalid", true);
-		return new ModelAndView("redirect:admin");
+		return new ModelAndView("redirect:/adminlogin");
 	}
 	
 }

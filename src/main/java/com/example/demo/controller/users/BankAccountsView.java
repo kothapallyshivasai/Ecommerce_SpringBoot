@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.BankAccounts;
-import com.example.demo.entity.Customers;
 import com.example.demo.repository.BankAccountsRepository;
 import com.example.demo.repository.CustomersRepository;
 import com.example.demo.service.BankAccountsService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class BankAccountsView {
@@ -28,9 +29,9 @@ public class BankAccountsView {
 	CustomersRepository customersRepository;
 	
 	@GetMapping("/customer/bankaccounts")
-	public ModelAndView getBankAccounts(Model model) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
-		model.addAttribute("accounts", bankAccountsRepository.findByEmailId(customer.getEmailId()));
+	public ModelAndView getBankAccounts(Model model,  HttpSession session) {
+		
+		model.addAttribute("accounts", bankAccountsRepository.findByEmailId(session.getAttribute("email_id").toString()));
 		return new ModelAndView("users/bankaccounts");
 	}
 	

@@ -19,6 +19,8 @@ import com.example.demo.repository.ProductsRepository;
 import com.example.demo.service.CartService;
 import com.example.demo.service.ProductsService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class CartView {
 
@@ -38,8 +40,8 @@ public class CartView {
 	ProductsRepository productsRepository;
 	
 	@GetMapping("/customer/addtocart/{productCode}")
-	public ModelAndView addToCart(Model model, @PathVariable("productCode") int productCode) {
-		 Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+	public ModelAndView addToCart(Model model, @PathVariable("productCode") int productCode, HttpSession session) {
+		 Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 	     List<Cart> existingCarts = cartRepository.findByCustomersCustomerId(customer.getCustomerId());
 	     boolean flag = true;
 
@@ -62,8 +64,8 @@ public class CartView {
 	}
 	
 	@GetMapping("/customer/cart")
-    public ModelAndView getCartItemsForCustomer(Model model) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+    public ModelAndView getCartItemsForCustomer(Model model, HttpSession session) {
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		List<Cart> carts = cartRepository.findByCustomersCustomerId(customer.getCustomerId());
 		model.addAttribute("carts", carts);
 		List<Integer> productCodes = new ArrayList<>();
@@ -75,8 +77,8 @@ public class CartView {
     }
 	
 	@GetMapping("/customer/removecart/{productCode}")
-	public ModelAndView removeCart(Model model, @PathVariable("productCode") int productCode) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+	public ModelAndView removeCart(Model model, @PathVariable("productCode") int productCode, HttpSession session) {
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		Cart cart = cartRepository.findFirstByCustomersAndProductCode(customer, productCode);
 		cartRepository.delete(cart);
 		return new ModelAndView("redirect:/customer/cart");

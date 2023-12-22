@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.BankAccounts;
 import com.example.demo.entity.BankTransactions;
 import com.example.demo.entity.Buynow;
+import com.example.demo.entity.Cart;
 import com.example.demo.entity.CustomerOrders;
 import com.example.demo.entity.Customers;
 import com.example.demo.entity.Invoices;
@@ -20,6 +21,7 @@ import com.example.demo.entity.Products;
 import com.example.demo.entity.Shipment;
 import com.example.demo.repository.BankAccountsRepository;
 import com.example.demo.repository.BankTransactionsRepository;
+import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.CustomerOrdersRepository;
 import com.example.demo.repository.CustomersRepository;
 import com.example.demo.repository.InvoicesRepository;
@@ -28,6 +30,8 @@ import com.example.demo.service.CustomerOrdersService;
 import com.example.demo.service.InvoicesService;
 import com.example.demo.service.ProductsService;
 import com.example.demo.service.ShipmentService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class BuyNow {
@@ -61,10 +65,13 @@ public class BuyNow {
 	
 	@Autowired
 	BankTransactionsRepository bankTransactionsRepository;
+	
+	@Autowired
+	CartRepository cartRepository;
 
 	@GetMapping("/customer/buynow/{productCode}")
-	public ModelAndView buyNow(Model model, @PathVariable("productCode") int productCode) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+	public ModelAndView buyNow(Model model, @PathVariable("productCode") int productCode, HttpSession session) {
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		Buynow buy = new Buynow();
 		buy.setCustomer(customer);
 		buy.setProduct((Products) productsService.getProductById(productCode));
@@ -78,9 +85,9 @@ public class BuyNow {
 	}
 	
 	@PostMapping("/customer/placeorder/{productCode}")
-	public ModelAndView placeOrder(@ModelAttribute("buy") Buynow buy, Model model,@PathVariable("productCode") int productCode) {
+	public ModelAndView placeOrder(@ModelAttribute("buy") Buynow buy, Model model,@PathVariable("productCode") int productCode, HttpSession session) {
 		
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		Shipment shipment = buy.getShipment();
 		Invoices invoice = buy.getInvoice();
 		Products product = (Products) productsService.getProductById(productCode);
@@ -131,6 +138,11 @@ public class BuyNow {
 			transaction.setAmount(cus.getBillAmount());
 			transaction.setTransactionDate(new Date(new java.util.Date().getTime()));
 			bankTransactionsRepository.save(transaction);
+			try {
+				Cart cart = cartRepository.findFirstByCustomersAndProductCode(customer, productCode);
+				cartRepository.delete(cart);
+		}
+		catch(Exception e) {}
 			
 		}
 		else {

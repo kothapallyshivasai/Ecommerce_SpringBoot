@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.demo.entity.Administrator;
 import com.example.demo.entity.Customers;
-import com.example.demo.repository.AdministratorRepository;
+import com.example.demo.service.AdministratorService;
 import com.example.demo.service.CustomersService;
 
 @RestController
@@ -31,7 +29,7 @@ public class Register {
 	CustomersService customersService;
 	
 	@Autowired
-	AdministratorRepository administratorRepository;
+	AdministratorService administratorService;
 	
 	@GetMapping("/register")
 	public ModelAndView registerPage(Model model) {
@@ -69,9 +67,10 @@ public class Register {
 	                Administrator user = new Administrator();
 	                user.setUserName(register.getEmailId());
 	                user.setPassword(register.getPassword());
-	                user.setRole("USER");
-	                administratorRepository.save(user);
-		            return new ModelAndView("redirect:/userhome");
+	                user.setRole("ROLE_USER");
+	                administratorService.addUser(user);
+	                
+		            return new ModelAndView("redirect:/customerlogin");
 	            } 
 	    		catch (Exception e) {
 		            return new ModelAndView("redirect:/home"); 

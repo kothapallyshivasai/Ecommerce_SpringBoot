@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:replace="~{admin/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive" id="table_id">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Product Code</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Category</th>
+					<th scope="col">Description</th>
+					<th scope="col">Cost</th>
+					<th scope="col">Discount</th>
+					<th scope="col">Product Image</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td th:text="${product.productCode}"></td>
+					<td th:text="${product.productName}"></td>
+					<td th:text="${product.category}"></td>
+					<td th:text="${product.description}"></td>
+					<td th:text="${product.cost}"></td>
+					<td th:text="${product.discount}"></td>
+					<td>
+					    <img th:src="${'/' + product.productImage}" alt="Product Image" style="width: 100px;">
+					</td>
+					<td>
+						<a th:href="@{/admin/admineditproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-primary'>Edit Product</a>
+					</td>
+					<td>
+						<a th:href="@{/admin/admindeleteproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-danger'>Delete Product</a>
+					</td>
+			    </tr>
+			</tbody>
+		</table>     
+    </div>
+    <script>
+	  $(document).ready( function () {
+	    $('#table_id').DataTable({order: []});
+	    
+	} );
+	</script>
+</body>
+</html>

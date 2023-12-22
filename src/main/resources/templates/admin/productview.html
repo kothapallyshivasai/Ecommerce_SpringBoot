@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>Product View</title>
     <link rel="icon" th:href="@{/icons/head.png}" />
     <th:block th:replace="~{includes/includes :: headers}"></th:block>
     <link rel="stylesheet" href="/css/product.css">
@@ -35,10 +35,12 @@
 							<s th:text="${'$' + product.cost}"></s>
 							<b class="text-danger" th:text="${'$' + (product.cost - (product.cost * (product.discount / 100))) + ' only!!'}"></b>
 						</h4>
+						
 						<div style="margin-top: 15px;" class="d-grid gap-2 d-md-flex justify-content-md-end">
-							<a th:href="@{/admin/admineditproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-primary'>Edit Product</a>
-						    <a th:href="@{/admin/admindeleteproduct/{productCode}(productCode=${product.productCode})}" class='btn btn-danger'>Delete Product</a>
+							<a th:href="@{/admin/dispatchproduct/{orderId}(orderId=${orderId})}" class='text-white btn btn-dark'>Dispatch Product</a>
 						</div>
+						
+						
 						<hr style="height: 2px;" noshade class="bg-secondary">
 					</div>
 				</div>

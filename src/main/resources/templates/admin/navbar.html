@@ -25,6 +25,7 @@
 			          <ul class="dropdown-menu">
 			            <li class="li"><a class="dropdown-item hover-animation" href="/admin/adminaddproduct">Add Product</a></li>
 			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/adminproducts}">View Products</a></li>
+			            			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/manageproducts}">Manage Products</a></li>
 			          </ul>
 			        </li>
 			        
@@ -37,10 +38,11 @@
 			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/shipments}">Shipments</a></li>
 			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/invoices}">Invoices</a></li>
 			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/transactions}">Transactions</a></li>
+			            <li class="li"><a class="dropdown-item hover-animation" th:href="@{/admin/viewcustomers}">View Customers</a></li>
 			          </ul>
 			        </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white hover-animation" th:href="@{/admin/logout}">Logout</a>
+                        <a class="nav-link text-white hover-animation" th:href="@{/customer/logout}">Logout</a>
                     </li>
                     <li>
 						<form id="searchform" th:action="@{/admin/adminsearch}" method="get" class="d-flex" role="search">

@@ -10,6 +10,8 @@ import com.example.demo.entity.Customers;
 import com.example.demo.repository.CustomersRepository;
 import com.example.demo.repository.InvoicesRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class YourInvoices {
 
@@ -20,8 +22,8 @@ public class YourInvoices {
 	CustomersRepository customersRepository;
 	
 	@GetMapping("/customer/yourinvoices")
-	public ModelAndView yourInvoices(Model model) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+	public ModelAndView yourInvoices(Model model, HttpSession session) {
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		model.addAttribute("invoices", invoicesRepository.findInvoicesByCustomerId(customer.getCustomerId()));
 		return new ModelAndView("users/yourinvoices");
 	}

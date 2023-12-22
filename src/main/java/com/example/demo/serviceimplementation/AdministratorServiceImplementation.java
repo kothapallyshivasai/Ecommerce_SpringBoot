@@ -25,4 +25,14 @@ public class AdministratorServiceImplementation implements AdministratorService{
 	    }
 	    return false;
 	}
+	
+	@Override
+	public Optional<Administrator> getUserById(String username) {
+		return administratorRepository.findById(username);
+	}
+	
+	@Override
+	public void addUser(Administrator user) {
+		administratorRepository.save(user);
+	}
 }

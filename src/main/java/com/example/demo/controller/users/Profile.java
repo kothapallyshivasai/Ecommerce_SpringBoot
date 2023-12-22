@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.Customers;
 import com.example.demo.repository.CustomersRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class Profile {
 
@@ -17,8 +19,9 @@ public class Profile {
 	CustomersRepository customersRepository;
 	
 	@GetMapping("/customer/profile")
-	public ModelAndView getProfile(Model model) {
-		Customers customer = customersRepository.findByEmailId("shivasaikothapally@gmail.com");
+	public ModelAndView getProfile(Model model, HttpSession session) {
+		
+		Customers customer = customersRepository.findByEmailId(session.getAttribute("email_id").toString());
 		model.addAttribute("customer", customer);
 		return new ModelAndView("users/profile");
 	}

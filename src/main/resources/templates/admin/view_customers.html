@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customers</title>
+    <link rel="icon" th:href="@{/icons/head.png}" />
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <th:block th:replace="~{includes/includes :: headers}"></th:block>
+</head>
+<body>
+	<div th:if="${valid}" id="valid" style="display: none;"></div>
+		
+	<script>
+		if (document.getElementById("valid")) {
+		   swal("Error", "The Customer is a valid customer", "error");
+		}
+	</script>
+	<div th:replace="~{admin/navbar.html :: nonnavbar}"></div>
+	<div id="margingap"></div>
+	<div class="container">
+	       <table class="table table-hover table-responsive" id="table_id">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Customer ID</th>
+					<th scope="col">Register Date</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Mobile Number</th>
+					<th scope="col">Email ID</th>
+					<th scope="col">Profile Pic</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="customer : ${customers}">
+					<td th:text="${customer.customerId}"></td>
+					<td th:text="${customer.registerDate}"></td>
+					<td th:text="${customer.firstName != null ? customer.firstName : 'null'}"></td>
+					<td th:text="${customer.lastName != null ? customer.lastName : 'null'}"></td>
+					<td th:text="${customer.mobileNumber != null ? customer.mobileNumber : 'null'}"></td>
+					<td th:text="${customer.emailId != null ? customer.emailId : 'null'}"></td>
+					<td>
+					    <img th:src="${'/userprofilepictures/' + (customer.profilePic != null ? customer.profilePic : 'default.jpg')}" alt="Profile Pic" style="width: 100px;">
+					</td>
+					<td>
+						<a th:href="@{/admin/admindeletecustomer/{customerId}(customerId=${customer.customerId})}" class='btn btn-danger'>Delete Customer</a>
+					</td>
+			    </tr>
+			</tbody>
+		</table>     
+    </div>
+    <script>
+	  $(document).ready( function () {
+	    $('#table_id').DataTable({order: []});
+	    
+	} );
+	</script>
+</body>
+</html>
